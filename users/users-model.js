@@ -4,7 +4,6 @@ module.exports = {
   add,
   find,
   findBy,
-  findByDpt,
   findById
 };
 
@@ -14,11 +13,6 @@ function find() {
 
 function findBy(filter) {
   return db("users").where(filter);
-}
-
-function findByDpt(filter) {
-  console.log("findByDpt Filter: ", filter);
-  return db("users").where("department", filter);
 }
 
 async function add(user) {
