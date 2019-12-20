@@ -5,9 +5,12 @@ const jwt = require("jsonwebtoken");
 const Users = require("../users/users-model.js");
 
 router.post("/register", (req, res) => {
+  console.log("posting register");
   let user = req.body;
+  console.log(user);
   const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
+  console.log(hash);
 
   Users.add(user)
     .then(saved => {
@@ -20,12 +23,13 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
-
+  console.log("LOGIN CHECK", username, password);
   Users.findBy({ username })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         // sign token
+        console.log("PASSWORD LOG", password, user.password);
         const token = signToken(user);
 
         res
